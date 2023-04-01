@@ -29,4 +29,13 @@ public class Tutor {
 	private String biografia;
 	private String senha;
 
+	public Tutor(DadosCadastroTutor dados) {
+		this.nome = dados.nome();
+		this.email = dados.email();
+		this.telefone = dados.telefone();
+		this.cidade = dados.cidade();
+		this.biografia = dados.biografia();
+		this.senha = dados.biografia();
+	}
+
 }
