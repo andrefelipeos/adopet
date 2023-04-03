@@ -35,7 +35,7 @@ public class Tutor {
 		this.telefone = dados.telefone();
 		this.cidade = dados.cidade();
 		this.biografia = dados.biografia();
-		this.senha = dados.biografia();
+		this.senha = dados.senha();
 	}
 
 }
