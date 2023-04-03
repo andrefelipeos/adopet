@@ -10,8 +10,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table
+@Entity(name = "Tutor")
+@Table(name = "tutores")
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "identificador")
