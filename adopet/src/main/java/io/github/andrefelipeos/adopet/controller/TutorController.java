@@ -8,10 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.github.andrefelipeos.adopet.domain.tutor.DadosAtualizacaoTutor;
 import io.github.andrefelipeos.adopet.domain.tutor.DadosCadastroTutor;
 import io.github.andrefelipeos.adopet.domain.tutor.DadosListagemTutores;
 import io.github.andrefelipeos.adopet.domain.tutor.DadosVisualizacaoTutor;
@@ -42,6 +44,14 @@ public class TutorController {
 	@GetMapping("/{identificador}")
 	public ResponseEntity<DadosVisualizacaoTutor> visualizar(@PathVariable Long identificador) {
 		Tutor tutor = tutorRepository.getReferenceById(identificador);
+		return ResponseEntity.ok(new DadosVisualizacaoTutor(tutor));
+	}
+
+	@PutMapping
+	@Transactional
+	public ResponseEntity<DadosVisualizacaoTutor> atualizar(@RequestBody DadosAtualizacaoTutor dados) {
+		Tutor tutor = tutorRepository.getReferenceById(dados.identificador());
+		tutor.atualizarInformacoes(dados);
 		return ResponseEntity.ok(new DadosVisualizacaoTutor(tutor));
 	}
 
