@@ -38,4 +38,25 @@ public class Tutor {
 		this.senha = dados.senha();
 	}
 
+	public void atualizarInformacoes(DadosAtualizacaoTutor dados) {
+		if (dados.nome() != null) {
+			this.nome = dados.nome();
+		}
+		if (dados.email() != null) {
+			this.email = dados.email();
+		}
+		if (dados.telefone() != null) {
+			this.telefone = dados.telefone();
+		}
+		if (dados.cidade() != null) {
+			this.cidade = dados.cidade();
+		}
+		if (dados.biografia() != null) {
+			this.biografia = dados.biografia();
+		}
+		if (dados.senha() != null) {
+			this.senha = dados.senha();
+		}
+	}
+
 }
