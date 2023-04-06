@@ -48,10 +48,11 @@ public class TutorController {
 		return ResponseEntity.ok(new DadosVisualizacaoTutor(tutor));
 	}
 
-	@PutMapping
+	@PutMapping("/{identificador}")
 	@Transactional
-	public ResponseEntity<DadosVisualizacaoTutor> atualizar(@RequestBody DadosAtualizacaoTutor dados) {
-		Tutor tutor = tutorRepository.getReferenceById(dados.identificador());
+	public ResponseEntity<DadosVisualizacaoTutor> atualizar(@PathVariable Long identificador,
+			@RequestBody DadosAtualizacaoTutor dados) {
+		Tutor tutor = tutorRepository.getReferenceById(identificador);
 		tutor.atualizarInformacoes(dados);
 		return ResponseEntity.ok(new DadosVisualizacaoTutor(tutor));
 	}
