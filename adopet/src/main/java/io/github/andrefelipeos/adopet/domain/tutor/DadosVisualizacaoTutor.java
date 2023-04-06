@@ -1,6 +1,7 @@
 package io.github.andrefelipeos.adopet.domain.tutor;
 
 public record DadosVisualizacaoTutor(
+		Long identificador,
 		String nome,
 		String email,
 		String telefone,
@@ -9,7 +10,14 @@ public record DadosVisualizacaoTutor(
 ) {
 
 	public DadosVisualizacaoTutor(Tutor tutor) {
-		this(tutor.getNome(), tutor.getEmail(), tutor.getTelefone(), tutor.getCidade(), tutor.getBiografia());
+		this(
+				tutor.getIdentificador(),
+				tutor.getNome(),
+				tutor.getEmail(),
+				tutor.getTelefone(),
+				tutor.getCidade(),
+				tutor.getBiografia()
+			);
 	}
 
 }
