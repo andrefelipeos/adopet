@@ -40,4 +40,22 @@ public class Abrigo {
 		this.endereco = new Endereco(dados.endereco());
 	}
 
+	public void atualizarInformacoes(DadosAtualizacaoAbrigo dados) {
+		if (dados.nome() != null) {
+			this.nome = dados.nome();
+		}
+		if (dados.email() != null) {
+			this.email = dados.email();
+		}
+		if (dados.telefone() != null) {
+			this.telefone = dados.telefone();
+		}
+		if (dados.descricao() != null) {
+			this.descricao = dados.descricao();
+		}
+		if (dados.endereco() != null) {
+			this.endereco.atualizarInformacoes(dados.endereco());
+		}
+	}
+
 }
