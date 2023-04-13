@@ -24,4 +24,10 @@ public class Animal {
 	private String descricao;
 	private Boolean adotado;
 
+	public Animal(DadosCadastroAnimal dados) {
+		this.nome = dados.nome();
+		this.descricao = dados.descricao();
+		this.adotado = dados.adotado();
+	}
+
 }
