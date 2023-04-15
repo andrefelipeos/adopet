@@ -9,6 +9,8 @@ public record DadosCadastroAnimal(
 		@NotBlank
 		String nome,
 		@NotNull
+		Sexo sexo,
+		@NotNull
 		LocalDate dataDeNascimento,
 		String descricao,
 		@NotNull
