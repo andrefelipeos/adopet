@@ -5,6 +5,8 @@ import java.time.Period;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,11 +33,15 @@ public class Animal {
 	@Column(name = "data_nasc")
 	private LocalDate dataDeNascimento;
 
+	@Enumerated(EnumType.STRING)
+	private Sexo sexo;
+
 	public Animal(DadosCadastroAnimal dados) {
 		this.nome = dados.nome();
 		this.descricao = dados.descricao();
 		this.adotado = dados.adotado();
 		this.dataDeNascimento = dados.dataDeNascimento();
+		this.sexo = dados.sexo();
 	}
 
 	public String idadePorExtenso() {
