@@ -12,6 +12,7 @@ public record DadosCadastroAnimal(
 		Sexo sexo,
 		@NotNull
 		LocalDate dataDeNascimento,
+		Long identificadorDoAbrigo,
 		String descricao,
 		@NotNull
 		Boolean adotado
