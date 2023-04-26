@@ -1,8 +1,11 @@
 package io.github.andrefelipeos.adopet.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +16,7 @@ import io.github.andrefelipeos.adopet.domain.abrigo.AbrigoRepository;
 import io.github.andrefelipeos.adopet.domain.animal.Animal;
 import io.github.andrefelipeos.adopet.domain.animal.AnimalRepository;
 import io.github.andrefelipeos.adopet.domain.animal.DadosCadastroAnimal;
+import io.github.andrefelipeos.adopet.domain.animal.DadosListagemAnimais;
 import jakarta.validation.Valid;
 
 @RestController
@@ -31,6 +35,12 @@ public class AnimalController {
 		Abrigo abrigo = abrigoRepository.findById(dados.identificadorDoAbrigo()).get();
 		Animal animal = animalRepository.save(new Animal(dados, abrigo));
 		return ResponseEntity.ok(animal);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<DadosListagemAnimais>> listar() {
+		List<Animal> animais = animalRepository.findAll();
+		return ResponseEntity.ok(animais.stream().map(DadosListagemAnimais::new).toList());
 	}
 
 }
