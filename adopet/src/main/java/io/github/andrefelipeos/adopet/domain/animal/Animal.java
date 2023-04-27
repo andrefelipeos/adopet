@@ -79,4 +79,25 @@ public class Animal {
 		return null;
 	}
 
+	public void atualizarInformacoes(DadosAtualizacaoAnimal dados, Abrigo abrigo) {
+		if (dados.nome() != null) {
+			this.nome = dados.nome();
+		}
+		if (dados.sexo() != null) {
+			this.sexo = dados.sexo();
+		}
+		if (dados.dataDeNascimento() != null) {
+			this.dataDeNascimento = dados.dataDeNascimento();
+		}
+		if (abrigo != null) {
+			this.abrigo = abrigo;
+		}
+		if (dados.descricao() != null) {
+			this.descricao = dados.descricao();
+		}
+		if (dados.adotado() != null) {
+			this.adotado = dados.adotado();
+		}
+	}
+
 }
