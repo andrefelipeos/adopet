@@ -3,6 +3,7 @@ package io.github.andrefelipeos.adopet.domain.animal;
 import java.time.LocalDate;
 
 public record DadosListagemAnimais(
+		Long identificador,
 		String nome,
 		Sexo sexo,
 		LocalDate dataDeNascimento,
@@ -10,7 +11,7 @@ public record DadosListagemAnimais(
 		String descricao) {
 
 	public DadosListagemAnimais(Animal animal) {
-		this(animal.getNome(), animal.getSexo(), animal.getDataDeNascimento(),
+		this(animal.getIdentificador(), animal.getNome(), animal.getSexo(), animal.getDataDeNascimento(),
 				animal.getAbrigo().getNome(), animal.getDescricao());
 	}
 
