@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import io.github.andrefelipeos.adopet.domain.abrigo.Abrigo;
 import io.github.andrefelipeos.adopet.domain.abrigo.AbrigoRepository;
 import io.github.andrefelipeos.adopet.domain.animal.Animal;
 import io.github.andrefelipeos.adopet.domain.animal.AnimalRepository;
+import io.github.andrefelipeos.adopet.domain.animal.DadosAtualizacaoAnimal;
 import io.github.andrefelipeos.adopet.domain.animal.DadosCadastroAnimal;
 import io.github.andrefelipeos.adopet.domain.animal.DadosListagemAnimais;
 import io.github.andrefelipeos.adopet.domain.animal.DadosVisualizacaoAnimal;
@@ -49,6 +51,19 @@ public class AnimalController {
 	@GetMapping("/{identificador}")
 	public ResponseEntity<DadosVisualizacaoAnimal> visualizar(@PathVariable Long identificador) {
 		Animal animal = animalRepository.getReferenceById(identificador);
+		return ResponseEntity.ok(new DadosVisualizacaoAnimal(animal));
+	}
+
+	@PutMapping("/{identificador}")
+	@Transactional
+	public ResponseEntity<DadosVisualizacaoAnimal> atualizar(@PathVariable Long identificador,
+			@RequestBody DadosAtualizacaoAnimal dados) {
+		Animal animal = animalRepository.getReferenceById(identificador);
+		Abrigo abrigo = null;
+		if (dados.identificadorDoAbrigo() != null) {
+			abrigo = abrigoRepository.getReferenceById(dados.identificadorDoAbrigo());
+		}
+		animal.atualizarInformacoes(dados, abrigo);
 		return ResponseEntity.ok(new DadosVisualizacaoAnimal(animal));
 	}
 
