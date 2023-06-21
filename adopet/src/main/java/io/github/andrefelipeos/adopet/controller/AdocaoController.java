@@ -23,7 +23,7 @@ import io.github.andrefelipeos.adopet.domain.tutor.Tutor;
 import io.github.andrefelipeos.adopet.domain.tutor.TutorRepository;
 
 @RestController
-@RequestMapping("/adocao")
+@RequestMapping("/adocoes")
 public class AdocaoController {
 
 	@Autowired
