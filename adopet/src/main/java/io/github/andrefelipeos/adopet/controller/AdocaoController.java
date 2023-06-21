@@ -1,10 +1,12 @@
 package io.github.andrefelipeos.adopet.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +41,12 @@ public class AdocaoController {
 		Adocao adocao = new Adocao(null, LocalDate.from(dados.data()), animal, tutor);
 		adocaoRepository.save(adocao);
 		return ResponseEntity.ok(adocao);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<Adocao>> listar() {
+		var listaDeAdocoes = adocaoRepository.findAll();
+		return ResponseEntity.ok(listaDeAdocoes);
 	}
 
 }
