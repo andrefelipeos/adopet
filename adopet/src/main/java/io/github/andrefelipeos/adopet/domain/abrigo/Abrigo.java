@@ -1,5 +1,7 @@
 package io.github.andrefelipeos.adopet.domain.abrigo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import io.github.andrefelipeos.adopet.domain.endereco.Endereco;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -12,6 +14,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity(name = "Abrigo")
 @Table(name = "abrigos")
 @AllArgsConstructor

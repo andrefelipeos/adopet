@@ -1,5 +1,7 @@
 package io.github.andrefelipeos.adopet.domain.tutor;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +12,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity(name = "Tutor")
 @Table(name = "tutores")
 @AllArgsConstructor

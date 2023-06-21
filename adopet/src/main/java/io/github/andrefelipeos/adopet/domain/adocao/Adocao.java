@@ -2,6 +2,8 @@ package io.github.andrefelipeos.adopet.domain.adocao;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import io.github.andrefelipeos.adopet.domain.animal.Animal;
 import io.github.andrefelipeos.adopet.domain.tutor.Tutor;
 import jakarta.persistence.Column;
@@ -16,6 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity(name = "Adocao")
 @Table(name = "adocoes")
 @AllArgsConstructor
