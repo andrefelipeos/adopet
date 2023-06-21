@@ -1,6 +1,5 @@
 package io.github.andrefelipeos.adopet.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,32 +15,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.andrefelipeos.adopet.domain.adocao.Adocao;
 import io.github.andrefelipeos.adopet.domain.adocao.AdocaoRepository;
+import io.github.andrefelipeos.adopet.domain.adocao.AdocaoService;
 import io.github.andrefelipeos.adopet.domain.adocao.DadosCadastroAdocao;
-import io.github.andrefelipeos.adopet.domain.animal.Animal;
-import io.github.andrefelipeos.adopet.domain.animal.AnimalRepository;
-import io.github.andrefelipeos.adopet.domain.tutor.Tutor;
-import io.github.andrefelipeos.adopet.domain.tutor.TutorRepository;
 
 @RestController
 @RequestMapping("/adocoes")
 public class AdocaoController {
 
 	@Autowired
+	private AdocaoService adocaoService;
+
+	@Autowired
 	private AdocaoRepository adocaoRepository;
-
-	@Autowired
-	private AnimalRepository animalRepository;
-
-	@Autowired
-	private TutorRepository tutorRepository;
 
 	@PostMapping
 	@Transactional
 	public ResponseEntity<Adocao> cadastrar(@RequestBody DadosCadastroAdocao dados) {
-		Tutor tutor = tutorRepository.getReferenceById(dados.identificadorTutor());
-		Animal animal = animalRepository.getReferenceById(dados.identificadorAnimal());
-		Adocao adocao = new Adocao(null, LocalDate.from(dados.data()), animal, tutor);
-		adocaoRepository.save(adocao);
+		Adocao adocao = adocaoService
+				.registrarNovaAdoção(dados.identificadorTutor(), dados.identificadorAnimal(), dados.data());
 		return ResponseEntity.ok(adocao);
 	}
 
