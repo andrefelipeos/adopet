@@ -20,6 +20,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity(name = "Animal")
@@ -35,6 +36,8 @@ public class Animal {
 
 	private String nome;
 	private String descricao;
+
+	@Setter
 	private Boolean adotado;
 
 	@Column(name = "data_nasc")
