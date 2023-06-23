@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.andrefelipeos.adopet.domain.usuario.DadosAutenticacao;
+import io.github.andrefelipeos.adopet.domain.usuario.Usuario;
+import io.github.andrefelipeos.adopet.infra.security.TokenService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -19,12 +21,14 @@ public class AutenticacaoController {
 	@Autowired
 	private AuthenticationManager authManager;
 
+	@Autowired
+	private TokenService tokenService;
+
 	@PostMapping
-	public ResponseEntity<Void> efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
+	public ResponseEntity<String> efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
 		var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-		@SuppressWarnings("unused")
 		var authentication = authManager.authenticate(token);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok(tokenService.gerarToken((Usuario) authentication.getPrincipal()));
 	}
 
 }
