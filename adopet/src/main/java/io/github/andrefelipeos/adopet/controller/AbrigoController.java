@@ -1,5 +1,6 @@
 package io.github.andrefelipeos.adopet.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import io.github.andrefelipeos.adopet.domain.abrigo.Abrigo;
 import io.github.andrefelipeos.adopet.domain.abrigo.AbrigoRepository;
@@ -31,9 +33,11 @@ public class AbrigoController {
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Abrigo> cadastrar(@RequestBody @Valid DadosCadastroAbrigo dados) {
+	public ResponseEntity<DadosVisualizacaoAbrigo> cadastrar(@RequestBody @Valid DadosCadastroAbrigo dados,
+			UriComponentsBuilder uriBuilder) {
 		Abrigo abrigo = abrigoRepository.save(new Abrigo(dados));
-		return ResponseEntity.ok(abrigo);
+		URI uri = uriBuilder.path("/abrigos/{id}").buildAndExpand(abrigo.getIdentificador()).toUri();
+		return ResponseEntity.created(uri).body(new DadosVisualizacaoAbrigo(abrigo));
 	}
 
 	@GetMapping

@@ -1,5 +1,6 @@
 package io.github.andrefelipeos.adopet.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import io.github.andrefelipeos.adopet.domain.abrigo.Abrigo;
 import io.github.andrefelipeos.adopet.domain.abrigo.AbrigoRepository;
@@ -36,10 +38,12 @@ public class AnimalController {
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Animal> cadastrar(@RequestBody @Valid DadosCadastroAnimal dados) {
+	public ResponseEntity<DadosVisualizacaoAnimal> cadastrar(@RequestBody @Valid DadosCadastroAnimal dados,
+			UriComponentsBuilder uriBuilder) {
 		Abrigo abrigo = abrigoRepository.findById(dados.identificadorDoAbrigo()).get();
 		Animal animal = animalRepository.save(new Animal(dados, abrigo));
-		return ResponseEntity.ok(animal);
+		URI uri = uriBuilder.path("/animais/{id}").buildAndExpand(animal.getIdentificador()).toUri();
+		return ResponseEntity.created(uri).body(new DadosVisualizacaoAnimal(animal));
 	}
 
 	@GetMapping

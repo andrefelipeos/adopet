@@ -1,5 +1,6 @@
 package io.github.andrefelipeos.adopet.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import io.github.andrefelipeos.adopet.domain.tutor.DadosAtualizacaoTutor;
 import io.github.andrefelipeos.adopet.domain.tutor.DadosCadastroTutor;
@@ -31,9 +33,11 @@ public class TutorController {
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Tutor> cadastrar(@RequestBody @Valid DadosCadastroTutor dados) {
+	public ResponseEntity<DadosVisualizacaoTutor> cadastrar(@RequestBody @Valid DadosCadastroTutor dados,
+			UriComponentsBuilder uriBuilder) {
 		Tutor tutor = tutorRepository.save(new Tutor(dados));
-		return ResponseEntity.ok(tutor);
+		URI uri = uriBuilder.path("/tutores/{id}").buildAndExpand(tutor.getIdentificador()).toUri();
+		return ResponseEntity.created(uri).body(new DadosVisualizacaoTutor(tutor));
 	}
 
 	@GetMapping

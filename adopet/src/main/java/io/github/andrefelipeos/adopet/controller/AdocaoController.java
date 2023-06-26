@@ -1,5 +1,6 @@
 package io.github.andrefelipeos.adopet.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import io.github.andrefelipeos.adopet.domain.adocao.Adocao;
 import io.github.andrefelipeos.adopet.domain.adocao.AdocaoRepository;
@@ -30,10 +32,11 @@ public class AdocaoController {
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Adocao> cadastrar(@RequestBody DadosCadastroAdocao dados) {
+	public ResponseEntity<Adocao> cadastrar(@RequestBody DadosCadastroAdocao dados, UriComponentsBuilder uriBuilder) {
 		Adocao adocao = adocaoService
 				.registrarNovaAdoção(dados.identificadorTutor(), dados.identificadorAnimal(), dados.data());
-		return ResponseEntity.ok(adocao);
+		URI uri = uriBuilder.path("/adocoes/{id}").buildAndExpand(adocao.getIdentificador()).toUri();
+		return ResponseEntity.created(uri).body(adocao);
 	}
 
 	@GetMapping
