@@ -69,8 +69,9 @@ public class AnimalController {
 
 	@DeleteMapping("/{identificador}")
 	@Transactional
-	public void excluir(@PathVariable Long identificador) {
+	public ResponseEntity<Void> excluir(@PathVariable Long identificador) {
 		animalRepository.deleteById(identificador);
+		return ResponseEntity.noContent().build();
 	}
 
 }

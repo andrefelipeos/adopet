@@ -43,8 +43,9 @@ public class AdocaoController {
 	}
 
 	@DeleteMapping("/{identificador}")
-	public void excluir(@PathVariable Long identificador) {
+	public ResponseEntity<Void> excluir(@PathVariable Long identificador) {
 		adocaoRepository.deleteById(identificador);
+		return ResponseEntity.noContent().build();
 	}
 
 }

@@ -59,8 +59,9 @@ public class TutorController {
 
 	@DeleteMapping("/{identificador}")
 	@Transactional
-	public void excluir(@PathVariable Long identificador) {
+	public ResponseEntity<Void> excluir(@PathVariable Long identificador) {
 		tutorRepository.deleteById(identificador);
+		return ResponseEntity.noContent().build();
 	}
 
 }

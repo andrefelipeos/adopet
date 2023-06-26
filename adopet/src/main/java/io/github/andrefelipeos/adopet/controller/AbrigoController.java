@@ -59,8 +59,9 @@ public class AbrigoController {
 
 	@DeleteMapping("/{identificador}")
 	@Transactional
-	public void excluir(@PathVariable Long identificador) {
+	public ResponseEntity<Void> excluir(@PathVariable Long identificador) {
 		abrigoRepository.deleteById(identificador);
+		return ResponseEntity.noContent().build();
 	}
 
 }
